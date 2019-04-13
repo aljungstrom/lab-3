@@ -1,0 +1,63 @@
+package pack;
+
+import java.util.Scanner;
+
+public class Runner2 {
+	
+	public static void main(String[] args) {
+		Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+	    System.out.println("Hej kompis, vad vill du räkna ut?");
+	    String expr = myObj.nextLine();  // Read user input
+	    String[] splitExp = expr.split("\\s+");
+		System.out.println(calc(splitExp));
+	}
+	
+	public static double calc(String[] args) {
+		Stack numStack = new Stack();
+		double v = 0.0;
+		for(String n : args) {
+			if(opId(n)==true) {
+				double a = numStack.pop();
+				double b = numStack.pop();
+				double val = ops(b,a,n);
+				numStack.push(val);
+			}
+			else {
+				if(eqId(n)==false) {
+					numStack.push(Double.parseDouble(n));
+				}
+				else {
+					break;
+				}
+			}
+		}
+		v = numStack.pop();
+		return v;
+	}
+	
+	public static boolean opId(String data) {
+		boolean val;
+		val = false;
+		if(data.equals("+")) {val = true;};
+		if(data.equals("-")) {val = true;};
+		if(data.equals("/")) {val = true;};
+		if(data.equals("*")) {val = true;};
+		return val;
+	}
+	
+	public static boolean eqId(String data) {
+		boolean val;
+		val = false;
+		if(data.equals("=")) {val = true;};
+		return val;
+	}
+	
+	public static double ops(double arg1, double arg2, String data) {
+		double val=0;
+		if(data.equals("+")) {val = arg1+arg2;};
+		if(data.equals("-")) {val = arg1-arg2;};
+		if(data.equals("/")) {val = arg1/arg2;};
+		if(data.equals("*")) {val = arg1*arg2;};
+		return val;
+	}
+}
