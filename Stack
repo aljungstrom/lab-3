@@ -1,0 +1,34 @@
+package pack;
+
+public class Stack {
+	double stack[] = new double[120]; //Defines stack[i] to be an array of integers (takes at most 5)
+	int counter = 0;			//Just a counter
+	
+	public void push(double data) {
+		stack[counter] = data; //sets element
+		counter++;		//increases counter
+	}
+	
+	public double pop() {		//picks out top value
+		double data;
+		counter--; //we have one excess counter++ before, so we need to subtract
+		data = stack[counter];
+		stack[counter] = 0;
+		return data;
+	} 
+	
+	public boolean isEmpty() {
+		boolean d;
+		d = true;
+		if(counter == 0) {
+			 d = false;
+		}
+		return d;
+	}
+	
+	public void show() {			//prints everything
+		for(double n : stack) {
+			System.out.print(n + " ");
+		}
+	}
+}
