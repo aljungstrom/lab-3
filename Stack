@@ -9,19 +9,19 @@ public class Stack {
 		counter++;		//increases counter
 	}
 	
-	public double pop() {		//picks out top value
-		double data;
-		counter--; //we have one excess counter++ before, so we need to subtract
-		data = stack[counter];
+	public double pop()	 {		//picks out top value
+		double data; 
+		counter--;
+		data = stack[counter];	
 		stack[counter] = 0;
 		return data;
 	} 
 	
 	public boolean isEmpty() {
 		boolean d;
-		d = true;
-		if(counter == 0) {
-			 d = false;
+		d = false;
+		if(counter <= 0) {
+			 d = true;
 		}
 		return d;
 	}
