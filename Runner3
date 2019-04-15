@@ -1,0 +1,69 @@
+package pack;
+
+import java.util.Scanner;
+
+public class Runner3 {
+	Stack numStack;
+	String[] myInput;
+	
+	public Runner3(String[] args) {
+		numStack = new Stack();
+		myInput = args;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("Hej kompis, vad vill du räkna ut?");
+		Scanner myObj = new Scanner(System.in);   // Skapar ett Scanner-objekt
+	    String expr = myObj.nextLine();  // Läser input
+	    String[] splitExp = expr.split("\\s+");  //delar upp strängen vid mellanrum
+	    Runner3 myStack = new Runner3(splitExp); //
+		System.out.println(myStack.calc());
+	}
+	
+	public double calc() {
+		double v;								//Creates value-variable 
+		for(String n : myInput ) {
+			if(opId(n)) {					// Om n är en sträng poppar vi de två tidigare elementen och pushar resultatet
+				double a = numStack.pop();
+				double b = numStack.pop();
+				double val = ops(b,a,n);
+				numStack.push(val);
+			}
+			else {
+				if(eqId(n)==false) {
+					numStack.push(Double.parseDouble(n));
+				}
+				else {
+					break;
+				}
+			}
+		}
+		v = numStack.pop();
+		return v;
+	}
+	
+	public static boolean opId(String data) {  //Identifierar och returnerar operator-symboler
+		boolean val = false;
+		if(data.equals("+")) {val = true;}
+		else if (data.equals("-")) {val = true;}
+		else if(data.equals("/")) {val = true;}
+		else if(data.equals("*")) {val = true;};
+		return val;
+	}
+	
+	public static boolean eqId(String data) {
+		boolean val;
+		val = false;
+		if(data.equals("=")) {val = true;};
+		return val;
+	}
+	
+	public static double ops(double arg1, double arg2, String data) { //Tar emot 2 tal och en opertion, returnerar resultat
+		double val=0;												 
+		if(data.equals("+")) {val = arg1+arg2;}
+		else if(data.equals("-")) {val = arg1-arg2;}
+		else if(data.equals("/")) {val = arg1/arg2;}
+		else if(data.equals("*")) {val = arg1*arg2;};
+		return val;
+	}
+}
